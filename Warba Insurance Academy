@@ -1,1 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warba Insurance Academy — Student Commitment Form</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0f2438;
+    --navy-deep:#0a1a2b;
+    --gold:#b6862c;
+    --gold-light:#e2c383;
+    --paper:#f6f3ec;
+    --ink:#1c2530;
+    --ink-soft:#5b6675;
+    --line:#d9d2c2;
+    --error:#a5342a;
+    --ok:#2f6f4e;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.5;
+    padding:32px 16px 80px;
+  }
+  .sheet{
+    max-width:640px;
+    margin:0 auto;
+    background:#fff;
+    border:1px solid var(--line);
+    box-shadow:0 1px 2px rgba(15,36,56,0.04), 0 12px 32px rgba(15,36,56,0.06);
+  }
+  .letterhead{
+    background:var(--navy);
+    background-image:linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#fff;
+    padding:36px 32px 28px;
+    position:relative;
+    overflow:hidden;
+  }
+  .letterhead::after{
+    content:"";
+    position:absolute;
+    right:-40px; top:-40px;
+    width:160px; height:160px;
+    border:1px solid rgba(226,195,131,0.35);
+    border-radius:50%;
+  }
+  .letterhead::before{
+    content:"";
+    position:absolute;
+    right:10px; top:10px;
+    width:90px; height:90px;
+    border:1px solid rgba(226,195,131,0.25);
+    border-radius:50%;
+  }
+  .brand-mark{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:13px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--gold-light);
+    margin-bottom:18px;
+  }
+  .brand-mark svg{flex:none;}
+  .letterhead h1{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:clamp(26px,5vw,32px);
+    margin:0 0 8px;
+    letter-spacing:.01em;
+  }
+  .letterhead p{
+    margin:0;
+    color:rgba(255,255,255,0.72);
+    font-size:14.5px;
+    max-width:46ch;
+  }
+  form{padding:30px 32px 8px;}
+  .field{margin-bottom:22px;}
+  .field label{
+    display:block;
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:7px;
+  }
+  .field input[type="text"],
+  .field input[type="tel"],
+  .field input[type="date"]{
+    width:100%;
+    padding:11px 12px;
+    font-family:'Inter',sans-serif;
+    font-size:15px;
+    color:var(--ink);
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:2px;
+    outline:none;
+    transition:border-color .15s, background .15s;
+  }
+  .field input:focus{
+    border-color:var(--gold);
+    background:#fff;
+  }
+  .field input.invalid{border-color:var(--error);}
+  .two-col{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media (max-width:480px){ .two-col{grid-template-columns:1fr;} }
 
+  .question{
+    margin:30px 0 26px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+  }
+  .question .q-eyebrow{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    color:var(--gold);
+    font-size:13px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  .question h2{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:19px;
+    margin:0 0 4px;
+    color:var(--navy);
+  }
+  .question .q-sub{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    margin:0 0 16px;
+    font-style:italic;
+  }
+  .option{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding:13px 14px;
+    border:1px solid var(--line);
+    border-radius:3px;
+    margin-bottom:10px;
+    cursor:pointer;
+    transition:border-color .15s, background .15s;
+  }
+  .option:hover{border-color:var(--gold-light); background:#fdfbf6;}
+  .option input{
+    margin-top:3px;
+    accent-color:var(--navy);
+    width:16px; height:16px;
+    flex:none;
+  }
+  .option.checked{
+    border-color:var(--gold);
+    background:#fbf6ea;
+  }
+  .option .opt-title{font-weight:600; font-size:14.5px; color:var(--ink); display:block;}
+  .option .opt-sub{font-size:13px; color:var(--ink-soft); display:block; margin-top:2px;}
+
+  .pledge{
+    margin:28px 0 24px;
+    padding:18px 20px;
+    background:var(--paper);
+    border-left:3px solid var(--gold);
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:14.5px;
+    color:var(--navy);
+    line-height:1.6;
+  }
+
+  .error-text{
+    color:var(--error);
+    font-size:12.5px;
+    margin-top:6px;
+    display:none;
+  }
+  .error-text.show{display:block;}
+
+  .submit-row{padding:6px 32px 34px;}
+  button#submitBtn{
+    width:100%;
+    padding:15px;
+    background:var(--navy);
+    color:#fff;
+    border:none;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:.03em;
+    cursor:pointer;
+    border-radius:2px;
+    transition:background .15s, transform .1s;
+  }
+  button#submitBtn:hover{background:var(--navy-deep);}
+  button#submitBtn:active{transform:scale(0.995);}
+  button#submitBtn:disabled{opacity:.6; cursor:default;}
+
+  .status{
+    text-align:center;
+    font-size:13.5px;
+    margin-top:14px;
+    display:none;
+  }
+  .status.show{display:block;}
+  .status.err{color:var(--error);}
+
+  .success-screen{
+    display:none;
+    padding:60px 32px 64px;
+    text-align:center;
+  }
+  .success-screen.show{display:block;}
+  .success-screen .mark{
+    width:56px; height:56px;
+    border-radius:50%;
+    background:var(--navy);
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 20px;
+  }
+  .success-screen h2{
+    font-family:'Fraunces',serif;
+    color:var(--navy);
+    font-size:22px;
+    margin:0 0 8px;
+  }
+  .success-screen p{color:var(--ink-soft); font-size:14.5px; max-width:38ch; margin:0 auto;}
+</style>
+</head>
+<body>
+
+<div class="sheet" id="sheet">
+
+  <div class="letterhead">
+    <div class="brand-mark">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 1L18 4.5V9C18 14 14.5 17.8 10 19C5.5 17.8 2 14 2 9V4.5L10 1Z" stroke="#e2c383" stroke-width="1.3"/><path d="M6.5 10L9 12.5L13.8 7.5" stroke="#e2c383" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Warba Insurance Academy
+    </div>
+    <h1>Student Commitment Form</h1>
+    <p>Please complete every section honestly. Your answers help us place you where you'll do your best work.</p>
+  </div>
+
+  <form id="commitForm" novalidate>
+
+    <div class="two-col">
+      <div class="field">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" autocomplete="name" required>
+        <div class="error-text" id="err-name">Please enter your name.</div>
+      </div>
+      <div class="field">
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="e.g. 9xxx xxxx" required>
+      <div class="error-text" id="err-phone">Please enter a phone number.</div>
+    </div>
+
+    <div class="question">
+      <div class="q-eyebrow">Question 1</div>
+      <h2>Why are you here?</h2>
+      <p class="q-sub">What is the main reason you joined this academy? Tick only one box.</p>
+
+      <label class="option" data-group="q1">
+        <input type="radio" name="q1" value="I want a permanent, full-time job here.">
+        <span><span class="opt-title">I want to work hard and get a permanent, full-time job here.</span></span>
+      </label>
+      <label class="option" data-group="q1">
+        <input type="radio" name="q1" value="I want to learn real sales and marketing skills for my CV.">
+        <span><span class="opt-title">I want to learn real sales and marketing skills to improve my CV.</span></span>
+      </label>
+      <label class="option" data-group="q1">
+        <input type="radio" name="q1" value="I am here to finish the program, get my certificate, and get the money.">
+        <span><span class="opt-title">I am here to finish the program, get my certificate, and get the money.</span></span>
+      </label>
+      <div class="error-text" id="err-q1">Please choose one option.</div>
+    </div>
+
+    <div class="question">
+      <div class="q-eyebrow">Question 2</div>
+      <h2>What do you need from us?</h2>
+      <p class="q-sub">What motivates you the most to do a great job? Tick only one box.</p>
+
+      <label class="option" data-group="q2">
+        <input type="radio" name="q2" value="Extra Money">
+        <span><span class="opt-title">Extra Money</span><span class="opt-sub">I want cash bonuses and rewards when I hit my targets.</span></span>
+      </label>
+      <label class="option" data-group="q2">
+        <input type="radio" name="q2" value="Good Reputation">
+        <span><span class="opt-title">Good Reputation</span><span class="opt-sub">I want a great score, a strong recommendation letter, and support from the bosses.</span></span>
+      </label>
+      <label class="option" data-group="q2">
+        <input type="radio" name="q2" value="Freedom">
+        <span><span class="opt-title">Freedom</span><span class="opt-sub">I want the freedom to do my work and create things without people watching me too closely.</span></span>
+      </label>
+      <div class="error-text" id="err-q2">Please choose one option.</div>
+    </div>
+
+    <div class="question">
+      <div class="q-eyebrow">Question 3</div>
+      <h2>What can you give to us?</h2>
+      <p class="q-sub">Where can you help our company grow starting tomorrow? Choose the one job you are best at.</p>
+
+      <label class="option" data-group="q3">
+        <input type="radio" name="q3" value="Job A: Sales Outside the Office">
+        <span><span class="opt-title">Job A — Sales Outside the Office</span><span class="opt-sub">My promise: I will go outside, meet people, explain our insurance, and bring in real buying customers.</span></span>
+      </label>
+      <label class="option" data-group="q3">
+        <input type="radio" name="q3" value="Job B: Finding Leads and Contacts">
+        <span><span class="opt-title">Job B — Finding Leads &amp; Contacts</span><span class="opt-sub">My promise: I will talk to my friends and family to get their phone numbers and insurance details so our team can call them.</span></span>
+      </label>
+      <label class="option" data-group="q3">
+        <input type="radio" name="q3" value="Job C: Instagram and Social Media">
+        <span><span class="opt-title">Job C — Instagram &amp; Social Media</span><span class="opt-sub">My promise: I will make great videos, Reels, and TikToks to get more followers and likes for our company page.</span></span>
+      </label>
+      <div class="error-text" id="err-q3">Please choose one option.</div>
+    </div>
+
+    <div class="pledge">
+      "I promise that my answers are honest. I am ready to work hard in the group I chose, and I know the management will check my work every day."
+    </div>
+
+    <div class="submit-row">
+      <button type="submit" id="submitBtn">Submit Commitment Form</button>
+      <div class="status" id="statusMsg"></div>
+    </div>
+  </form>
+
+  <div class="success-screen" id="successScreen">
+    <div class="mark">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12.5L10 17.5L19 7" stroke="#e2c383" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <h2>Form submitted</h2>
+    <p>Thank you. Your answers have been recorded. You may close this page now.</p>
+  </div>
+
+</div>
+
+<script>
+// ======================================================================
+// PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW (ends in /exec).
+// See Apps_Script_Code.gs for setup steps.
+// ======================================================================
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxsueLhogMDz-EDW7Cz-us2OTtMERXSJRd-OP_xXtOyl_50RVPdQiLkcLN-ZFpILVG2/exec";
+
+const form = document.getElementById('commitForm');
+const submitBtn = document.getElementById('submitBtn');
+const statusMsg = document.getElementById('statusMsg');
+
+// Default the date field to today
+document.getElementById('date').valueAsDate = new Date();
+
+// Highlight the selected option in each radio group
+document.querySelectorAll('.option input[type="radio"]').forEach(input => {
+  input.addEventListener('change', () => {
+    document.querySelectorAll(`.option[data-group="${input.name}"]`).forEach(opt => opt.classList.remove('checked'));
+    input.closest('.option').classList.add('checked');
+  });
+});
+
+function setError(id, show){
+  const el = document.getElementById('err-' + id);
+  if(el) el.classList.toggle('show', show);
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  statusMsg.className = 'status';
+  statusMsg.textContent = '';
+
+  const name = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const date = document.getElementById('date').value;
+  const q1 = form.querySelector('input[name="q1"]:checked');
+  const q2 = form.querySelector('input[name="q2"]:checked');
+  const q3 = form.querySelector('input[name="q3"]:checked');
+
+  let valid = true;
+  setError('name', !name); if(!name) valid = false;
+  setError('phone', !phone); if(!phone) valid = false;
+  setError('q1', !q1); if(!q1) valid = false;
+  setError('q2', !q2); if(!q2) valid = false;
+  setError('q3', !q3); if(!q3) valid = false;
+
+  document.getElementById('name').classList.toggle('invalid', !name);
+  document.getElementById('phone').classList.toggle('invalid', !phone);
+
+  if(!valid){
+    statusMsg.className = 'status show err';
+    statusMsg.textContent = 'Please complete every field before submitting.';
+    return;
+  }
+
+  if(!SCRIPT_URL || SCRIPT_URL.indexOf('PASTE_YOUR') === 0){
+    statusMsg.className = 'status show err';
+    statusMsg.textContent = 'This form is not connected to a Google Sheet yet. See setup instructions.';
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Submitting…';
+
+  const payload = {
+    name: name,
+    phone: phone,
+    date: date,
+    q1: q1.value,
+    q2: q2.value,
+    q3: q3.value
+  };
+
+  const body = new FormData();
+  body.append('payload', JSON.stringify(payload));
+
+  try {
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+    });
+    form.style.display = 'none';
+    document.getElementById('successScreen').classList.add('show');
+  } catch (err) {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit Commitment Form';
+    statusMsg.className = 'status show err';
+    statusMsg.textContent = 'Something went wrong sending your form. Please try again.';
+  }
+});
+</script>
+
+</body>
+</html>
